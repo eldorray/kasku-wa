@@ -3,6 +3,7 @@
 @php
     $w = 200; $h = 36;
     $values = array_values($data);
+    if (empty($values)) { $values = [0, 0]; }
     $max = max(max($values), 1);
     $min = min(min($values), 0);
     $range = ($max - $min) ?: 1;

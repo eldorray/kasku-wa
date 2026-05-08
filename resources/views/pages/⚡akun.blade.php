@@ -265,6 +265,7 @@ new #[Title('Akun & Dompet')] class extends Component
     <x-kasku.card title="Tren saldo total" sub="Pergerakan saldo gabungan {{ count($series) }} hari terakhir">
         @php
             $values = array_map(fn ($r) => $r['balance'], $series);
+            if (empty($values)) { $values = [0]; }
             $maxV = max($values);
             $minV = min($values);
             $range = ($maxV - $minV) ?: max($maxV, 1);

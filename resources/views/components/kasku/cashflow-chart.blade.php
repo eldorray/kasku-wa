@@ -6,7 +6,7 @@
     $count = count($rows);
     $allValues = [];
     foreach ($rows as $r) { $allValues[] = $r['income']; $allValues[] = $r['expense']; }
-    $max = $allValues ? max($allValues) : 1;
+    $max = ($allValues && max($allValues) > 0) ? max($allValues) : 1;
     $xs = function ($i) use ($pad, $w, $count) {
         return $count > 1 ? $pad + ($i / ($count - 1)) * ($w - $pad * 2) : $pad;
     };
