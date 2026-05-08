@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Kasku — Dashboard Keuangan via WhatsApp</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;450;500;600&family=Geist+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+<div class="app">
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="brand-mark">k</div>
+      <div>
+        <div class="brand-name">Kasku</div>
+        <div class="brand-sub">via WhatsApp</div>
+      </div>
+    </div>
+
+    <div class="nav-section">
+      <div class="nav-label">Menu</div>
+      <button class="nav-item active" data-page="dashboard"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12 L12 4 L21 12"/><path d="M5 10v10h14V10"/></svg><span>Dashboard</span></button>
+      <button class="nav-item" data-page="transaksi"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><circle cx="4" cy="6" r="1"/><circle cx="4" cy="12" r="1"/><circle cx="4" cy="18" r="1"/></svg><span>Transaksi</span><span class="nav-badge" style="background:var(--ink);color:white">20</span></button>
+      <button class="nav-item" data-page="chat"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21l1.7-5.4A8 8 0 1 1 8 19l-5 2Z"/></svg><span>Chat WhatsApp</span><span class="nav-badge">live</span></button>
+      <button class="nav-item" data-page="kategori"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M20.5 12.5 13 20a2 2 0 0 1-2.8 0l-7-7a2 2 0 0 1 0-2.8L9.5 3H20v10.5"/><circle cx="15.5" cy="7.5" r="1.2"/></svg><span>Kategori &amp; Budget</span></button>
+      <button class="nav-item" data-page="laporan"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="20" x2="21" y2="20"/><rect x="6" y="11" width="3" height="7"/><rect x="11" y="6" width="3" height="12"/><rect x="16" y="14" width="3" height="4"/></svg><span>Laporan</span></button>
+      <button class="nav-item" data-page="akun"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7a2 2 0 0 1 2-2h13v4"/><path d="M3 7v11a2 2 0 0 0 2 2h15a1 1 0 0 0 1-1V9a1 1 0 0 0-1-1H5a2 2 0 0 1-2-1Z"/><circle cx="17" cy="14" r="1.2"/></svg><span>Akun &amp; Dompet</span></button>
+    </div>
+
+    <div class="nav-section">
+      <div class="nav-label">Lainnya</div>
+      <button class="nav-item"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1"/></svg><span>Target &amp; Goals</span></button>
+      <button class="nav-item"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.6 1.6 0 0 0 .3 1.7l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.6 1.6 0 0 0-1.7-.3 1.6 1.6 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.6 1.6 0 0 0-1-1.5 1.6 1.6 0 0 0-1.7.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.6 1.6 0 0 0 .3-1.7 1.6 1.6 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.6 1.6 0 0 0 1.5-1 1.6 1.6 0 0 0-.3-1.7l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.6 1.6 0 0 0 1.7.3 1.6 1.6 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.6 1.6 0 0 0 1 1.5 1.6 1.6 0 0 0 1.7-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.6 1.6 0 0 0-.3 1.7 1.6 1.6 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.6 1.6 0 0 0-1.5 1Z"/></svg><span>Pengaturan</span></button>
+    </div>
+
+    <div class="sidebar-footer">
+      <div class="wa-status">
+        <span class="wa-pulse"></span>
+        <span>WhatsApp tersambung</span>
+      </div>
+      <div class="user-card">
+        <div class="avatar">RA</div>
+        <div style="min-width:0;flex:1">
+          <div class="user-name">Rama Adriansyah</div>
+          <div class="user-phone">+62 812 8731 4422</div>
+        </div>
+        <button class="icon-btn" style="width:28px;height:28px;border:none"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="5" cy="12" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/></svg></button>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Main -->
+  <div class="main">
+    <div class="topbar">
+      <div class="crumb">
+        <span>Kasku</span>
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+        <b id="crumb-page">Dashboard</b>
+      </div>
+      <div class="spacer"></div>
+      <div class="search">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><line x1="20" y1="20" x2="16.65" y2="16.65"/></svg>
+        <input placeholder="Cari transaksi, kategori, merchant…" />
+        <span class="kbd">⌘K</span>
+      </div>
+      <button class="icon-btn"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a2 2 0 0 0 3.4 0"/></svg></button>
+      <button class="btn btn-wa"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21l1.7-5.4A8 8 0 1 1 8 19l-5 2Z"/></svg> Catat via WA</button>
+    </div>
+
+    <div class="page" id="page-host">
+      <div id="page-dashboard" class="page-view active"></div>
+      <div id="page-transaksi" class="page-view"></div>
+      <div id="page-chat" class="page-view"></div>
+      <div id="page-kategori" class="page-view"></div>
+      <div id="page-laporan" class="page-view"></div>
+      <div id="page-akun" class="page-view"></div>
+    </div>
+
+    <div id="drawer-host"></div>
+  </div>
+</div>
+
+<script src="data.js"></script>
+<script src="app-dashboard.js"></script>
+<script src="app-pages.js"></script>
+<script src="app-chat.js"></script>
+<script>
+const PAGE_TITLES = {
+  dashboard: 'Dashboard',
+  transaksi: 'Transaksi',
+  chat: 'Chat WhatsApp',
+  kategori: 'Kategori & Budget',
+  laporan: 'Laporan',
+  akun: 'Akun & Dompet',
+};
+
+const RENDERERS = {
+  dashboard: window.renderDashboard,
+  transaksi: window.renderTransaksi,
+  chat: window.renderChat,
+  kategori: window.renderKategori,
+  laporan: window.renderLaporan,
+  akun: window.renderAkun,
+};
+
+function goTo(page) {
+  // Stop chat animation if leaving chat
+  if (window.stopChat) window.stopChat();
+
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.toggle('active', n.dataset.page === page));
+  document.querySelectorAll('.page-view').forEach(v => v.classList.toggle('active', v.id === 'page-' + page));
+  document.getElementById('crumb-page').textContent = PAGE_TITLES[page];
+
+  const host = document.getElementById('page-' + page);
+  if (host && RENDERERS[page]) host.innerHTML = RENDERERS[page]();
+
+  // Scroll to top
+  document.getElementById('page-host').scrollTop = 0;
+}
+window.goTo = goTo;
+
+// Wire up nav clicks
+document.querySelectorAll('.nav-item[data-page]').forEach(n => {
+  n.addEventListener('click', () => goTo(n.dataset.page));
+});
+
+// Initial render
+goTo('dashboard');
+</script>
+</body>
+</html>

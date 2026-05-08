@@ -1,0 +1,1341 @@
+@import 'tailwindcss';
+@import '../../vendor/livewire/flux/dist/flux.css';
+
+@source '../views';
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../vendor/livewire/flux-pro/stubs/**/*.blade.php';
+@source '../../vendor/livewire/flux/stubs/**/*.blade.php';
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+    --font-sans: 'Geist', 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+    --font-mono: 'Geist Mono', ui-monospace, 'SF Mono', monospace;
+    --font-display: 'Instrument Serif', 'Times New Roman', serif;
+
+    --color-zinc-50: #fafafa;
+    --color-zinc-100: #f5f5f5;
+    --color-zinc-200: #e5e5e5;
+    --color-zinc-300: #d4d4d4;
+    --color-zinc-400: #a3a3a3;
+    --color-zinc-500: #737373;
+    --color-zinc-600: #525252;
+    --color-zinc-700: #404040;
+    --color-zinc-800: #262626;
+    --color-zinc-900: #171717;
+    --color-zinc-950: #0a0a0a;
+
+    /* Kasku — light defaults */
+    --color-bg: #f7f7f5;
+    --color-bg-elev: #ffffff;
+    --color-bg-sunken: #f0f0ed;
+    --color-ink: #0e0e0c;
+    --color-ink-2: #4a4a47;
+    --color-ink-3: #8a8a85;
+    --color-ink-4: #b8b8b3;
+    --color-line: #e8e8e3;
+    --color-line-2: #d8d8d2;
+    --color-wa: #25d366;
+    --color-wa-deep: #128c7e;
+    --color-wa-ink: #075e54;
+    --color-wa-bg: #e7f7ec;
+    --color-pos: #1f8a5b;
+    --color-neg: #c0382b;
+    --color-warn: #c47a14;
+    --color-info: #2a6fdb;
+
+    --radius-sm: 8px;
+    --radius-md: 14px;
+    --radius-lg: 20px;
+
+    --kasku-side-w: 248px;
+    --kasku-topbar-h: 64px;
+
+    --color-accent: var(--color-ink);
+    --color-accent-content: var(--color-ink);
+    --color-accent-foreground: #ffffff;
+}
+
+@layer theme {
+    .dark {
+        --color-bg: #0e0e0c;
+        --color-bg-elev: #1a1a18;
+        --color-bg-sunken: #141412;
+        --color-ink: #f5f5f1;
+        --color-ink-2: #c8c8c2;
+        --color-ink-3: #8a8a85;
+        --color-ink-4: #5a5a55;
+        --color-line: #2a2a26;
+        --color-line-2: #38383230;
+        --color-wa-bg: rgba(37, 211, 102, 0.12);
+
+        --color-accent: #ffffff;
+        --color-accent-content: #ffffff;
+        --color-accent-foreground: #0e0e0c;
+    }
+}
+
+@layer base {
+    *,
+    ::after,
+    ::before,
+    ::backdrop,
+    ::file-selector-button {
+        border-color: var(--color-line);
+    }
+
+    html, body {
+        background: var(--color-bg);
+        color: var(--color-ink);
+        font-family: var(--font-sans);
+        -webkit-font-smoothing: antialiased;
+        text-rendering: optimizeLegibility;
+        font-feature-settings: "ss01", "cv11";
+    }
+
+    body {
+        font-size: 14px;
+        line-height: 1.5;
+    }
+}
+
+@layer components {
+    .kasku-display {
+        font-family: var(--font-display);
+        font-weight: 400;
+        letter-spacing: -0.02em;
+        line-height: 1;
+    }
+    .kasku-mono {
+        font-family: var(--font-mono);
+    }
+    .kasku-tabular {
+        font-variant-numeric: tabular-nums;
+    }
+    .kasku-eyebrow {
+        font-size: 11px;
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+        color: var(--color-ink-3);
+        font-weight: 500;
+    }
+    .kasku-muted {
+        color: var(--color-ink-3);
+    }
+
+    .kasku-card {
+        background: var(--color-bg-elev);
+        border: 1px solid var(--color-line);
+        border-radius: var(--radius-md);
+        padding: 20px;
+    }
+    .kasku-card-hd {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 16px;
+    }
+    .kasku-card-title {
+        font-size: 13.5px;
+        font-weight: 500;
+    }
+    .kasku-card-sub {
+        font-size: 12px;
+        color: var(--color-ink-3);
+        margin-top: 2px;
+    }
+
+    .kasku-page-hd {
+        display: flex;
+        align-items: flex-end;
+        justify-content: space-between;
+        margin-bottom: 32px;
+        gap: 24px;
+        flex-wrap: wrap;
+    }
+    .kasku-page-title {
+        font-family: var(--font-display);
+        font-size: 44px;
+        line-height: 1;
+        letter-spacing: -0.02em;
+        margin-top: 4px;
+    }
+    .kasku-page-sub {
+        font-size: 13.5px;
+        color: var(--color-ink-3);
+        margin-top: 8px;
+        max-width: 560px;
+    }
+
+    .kasku-chip {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 3px 10px;
+        border-radius: 999px;
+        font-size: 11.5px;
+        background: var(--color-bg-sunken);
+        color: var(--color-ink-2);
+        font-weight: 500;
+        border: 1px solid var(--color-line);
+    }
+    .kasku-chip--wa { background: var(--color-wa-bg); color: var(--color-wa-ink); border-color: transparent; }
+    .kasku-chip--pos { background: rgba(31,138,91,0.1); color: var(--color-pos); border-color: transparent; }
+    .kasku-chip--neg { background: rgba(192,56,43,0.08); color: var(--color-neg); border-color: transparent; }
+    .kasku-chip--warn { background: rgba(196,122,20,0.12); color: var(--color-warn); border-color: transparent; }
+
+    .kasku-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 14px;
+        border-radius: 10px;
+        font-size: 13px;
+        font-weight: 500;
+        border: 1px solid var(--color-line);
+        background: var(--color-bg-elev);
+        color: var(--color-ink);
+        transition: all 120ms;
+    }
+    .kasku-btn:hover { background: var(--color-bg-sunken); }
+    .kasku-btn--primary {
+        background: var(--color-accent);
+        color: var(--color-accent-foreground);
+        border-color: var(--color-accent);
+    }
+    .kasku-btn--wa {
+        background: var(--color-wa);
+        color: white;
+        border-color: var(--color-wa);
+    }
+    .kasku-btn--wa:hover {
+        background: var(--color-wa-deep);
+        border-color: var(--color-wa-deep);
+    }
+    .kasku-btn--ghost {
+        border-color: transparent;
+        background: transparent;
+    }
+    .kasku-btn--ghost:hover { background: var(--color-bg-sunken); }
+    .kasku-btn svg { width: 14px; height: 14px; }
+
+    .kasku-icon-btn {
+        width: 36px;
+        height: 36px;
+        border-radius: 10px;
+        background: transparent;
+        border: 1px solid var(--color-line);
+        display: grid;
+        place-items: center;
+        color: var(--color-ink-2);
+    }
+    .kasku-icon-btn:hover { background: var(--color-bg-sunken); }
+    .kasku-icon-btn svg { width: 16px; height: 16px; }
+
+    .kasku-cat-icon {
+        width: 32px;
+        height: 32px;
+        border-radius: 9px;
+        display: grid;
+        place-items: center;
+        font-size: 14px;
+        flex-shrink: 0;
+    }
+
+    .kasku-bar {
+        height: 6px;
+        background: var(--color-bg-sunken);
+        border-radius: 999px;
+        overflow: hidden;
+    }
+    .kasku-bar-fill {
+        height: 100%;
+        background: var(--color-ink);
+        border-radius: 999px;
+        transition: width 400ms ease;
+    }
+
+    .kasku-pill {
+        padding: 5px 11px;
+        border: 1px solid var(--color-line);
+        background: var(--color-bg-elev);
+        border-radius: 999px;
+        font-size: 12px;
+        color: var(--color-ink-2);
+        cursor: pointer;
+    }
+    .kasku-pill.is-active {
+        background: var(--color-ink);
+        color: var(--color-bg-elev);
+        border-color: var(--color-ink);
+    }
+    .kasku-pill:hover:not(.is-active) { border-color: var(--color-line-2); }
+
+    .kasku-tabs {
+        display: inline-flex;
+        gap: 2px;
+        background: var(--color-bg-sunken);
+        padding: 3px;
+        border-radius: 10px;
+        border: 1px solid var(--color-line);
+    }
+    .kasku-tab {
+        padding: 6px 14px;
+        font-size: 12.5px;
+        font-weight: 500;
+        border-radius: 7px;
+        background: transparent;
+        border: none;
+        color: var(--color-ink-3);
+        cursor: pointer;
+    }
+    .kasku-tab.is-active {
+        background: var(--color-bg-elev);
+        color: var(--color-ink);
+        box-shadow: 0 1px 0 rgba(14,14,12,0.04), 0 1px 2px rgba(14,14,12,0.04);
+    }
+
+    .kasku-money {
+        font-variant-numeric: tabular-nums;
+        letter-spacing: -0.01em;
+    }
+    .kasku-money--pos { color: var(--color-pos); }
+    .kasku-money--neg { color: var(--color-neg); }
+
+    .kasku-tbl { width: 100%; border-collapse: collapse; }
+    .kasku-tbl th {
+        text-align: left;
+        font-weight: 500;
+        font-size: 11px;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: var(--color-ink-3);
+        padding: 12px 16px;
+        border-bottom: 1px solid var(--color-line);
+        background: var(--color-bg-sunken);
+    }
+    .kasku-tbl td {
+        padding: 14px 16px;
+        border-bottom: 1px solid var(--color-line);
+        font-size: 13px;
+        vertical-align: middle;
+    }
+    .kasku-tbl tr:last-child td { border-bottom: none; }
+    .kasku-tbl tr:hover td { background: var(--color-bg-sunken); cursor: pointer; }
+
+    .kasku-form-input {
+        width: 100%;
+        padding: 10px 12px;
+        border-radius: 10px;
+        border: 1px solid var(--color-line);
+        background: var(--color-bg-elev);
+        color: var(--color-ink);
+        font-family: inherit;
+        font-size: 13px;
+        line-height: 1.4;
+        transition: border-color 120ms, box-shadow 120ms;
+        outline: none;
+    }
+    .kasku-form-input:focus {
+        border-color: var(--color-ink);
+        box-shadow: 0 0 0 3px rgba(14, 14, 12, 0.06);
+    }
+    .kasku-form-input::placeholder { color: var(--color-ink-4); }
+    .kasku-form-error {
+        font-size: 11px;
+        color: var(--color-neg);
+        margin-top: 6px;
+    }
+
+    .kasku-shell {
+        display: grid;
+        grid-template-columns: var(--kasku-side-w) 1fr;
+        height: 100vh;
+        overflow: hidden;
+    }
+    .kasku-main {
+        display: grid;
+        grid-template-rows: var(--kasku-topbar-h) 1fr;
+        overflow: hidden;
+        position: relative;
+    }
+    .kasku-page {
+        overflow: auto;
+        padding: 32px 40px 60px;
+        background: var(--color-bg);
+    }
+
+    .kasku-sidebar {
+        background: var(--color-bg-elev);
+        border-right: 1px solid var(--color-line);
+        display: flex;
+        flex-direction: column;
+        padding: 20px 0;
+    }
+    .kasku-brand {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 0 20px;
+        margin-bottom: 24px;
+    }
+    .kasku-brand-mark {
+        width: 34px;
+        height: 34px;
+        border-radius: 9px;
+        background: var(--color-ink);
+        color: var(--color-bg-elev);
+        display: grid;
+        place-items: center;
+        font-family: var(--font-display);
+        font-size: 20px;
+        position: relative;
+    }
+    .kasku-brand-mark::after {
+        content: '';
+        position: absolute;
+        width: 11px;
+        height: 11px;
+        background: var(--color-wa);
+        border-radius: 50%;
+        bottom: -2px;
+        right: -2px;
+        border: 2px solid var(--color-bg-elev);
+    }
+    .kasku-brand-name {
+        font-family: var(--font-display);
+        font-size: 22px;
+        line-height: 1;
+    }
+    .kasku-brand-sub {
+        font-size: 10px;
+        color: var(--color-ink-3);
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+    }
+
+    .kasku-nav-section { padding: 0 12px; margin-top: 12px; }
+    .kasku-nav-label {
+        font-size: 10px;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        color: var(--color-ink-4);
+        padding: 0 12px 6px;
+        font-weight: 500;
+    }
+    .kasku-nav-item {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 8px 12px;
+        border-radius: 8px;
+        color: var(--color-ink-2);
+        font-size: 13.5px;
+        font-weight: 450;
+        border: none;
+        background: transparent;
+        width: 100%;
+        text-align: left;
+        text-decoration: none;
+        transition: background 120ms;
+    }
+    .kasku-nav-item:hover {
+        background: var(--color-bg-sunken);
+        color: var(--color-ink);
+    }
+    .kasku-nav-item.is-active {
+        background: var(--color-ink);
+        color: var(--color-bg-elev);
+    }
+    .kasku-nav-item.is-active svg { color: var(--color-bg-elev); }
+    .kasku-nav-item svg {
+        width: 16px;
+        height: 16px;
+        color: var(--color-ink-3);
+        flex-shrink: 0;
+    }
+    .kasku-nav-badge {
+        margin-left: auto;
+        background: var(--color-wa);
+        color: white;
+        font-size: 10px;
+        padding: 1px 7px;
+        border-radius: 999px;
+        font-weight: 600;
+        letter-spacing: 0.02em;
+    }
+    .kasku-nav-badge--ink {
+        background: var(--color-ink);
+        color: var(--color-bg-elev);
+    }
+
+    .kasku-sidebar-footer {
+        margin-top: auto;
+        padding: 16px 20px;
+        border-top: 1px solid var(--color-line);
+    }
+    .kasku-wa-status {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 12px;
+        color: var(--color-ink-2);
+        margin-bottom: 12px;
+    }
+    .kasku-wa-pulse {
+        width: 8px;
+        height: 8px;
+        background: var(--color-wa);
+        border-radius: 50%;
+        position: relative;
+        flex-shrink: 0;
+    }
+    .kasku-wa-pulse::after {
+        content: '';
+        position: absolute;
+        inset: -3px;
+        border-radius: 50%;
+        background: var(--color-wa);
+        opacity: 0.3;
+        animation: kasku-pulse 2s ease-in-out infinite;
+    }
+    @keyframes kasku-pulse {
+        0%, 100% { transform: scale(1); opacity: 0.3; }
+        50% { transform: scale(1.6); opacity: 0; }
+    }
+    .kasku-user-card {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding-top: 12px;
+        border-top: 1px solid var(--color-line);
+    }
+    .kasku-avatar {
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #f7d488, #c47a14);
+        display: grid;
+        place-items: center;
+        font-weight: 600;
+        font-size: 12px;
+        color: white;
+        flex-shrink: 0;
+    }
+
+    .kasku-topbar {
+        height: var(--kasku-topbar-h);
+        border-bottom: 1px solid var(--color-line);
+        background: var(--color-bg-elev);
+        display: flex;
+        align-items: center;
+        padding: 0 32px;
+        gap: 16px;
+        z-index: 5;
+    }
+    .kasku-crumb {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 13px;
+        color: var(--color-ink-3);
+    }
+    .kasku-crumb b { color: var(--color-ink); font-weight: 500; }
+    .kasku-search {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        background: var(--color-bg-sunken);
+        border: 1px solid transparent;
+        padding: 7px 12px;
+        border-radius: 10px;
+        width: 320px;
+        color: var(--color-ink-3);
+        font-size: 13px;
+    }
+    .kasku-search:focus-within {
+        border-color: var(--color-line-2);
+        background: var(--color-bg-elev);
+    }
+    .kasku-search input {
+        border: none;
+        background: transparent;
+        outline: none;
+        flex: 1;
+        font-family: inherit;
+        font-size: 13px;
+        color: var(--color-ink);
+    }
+    .kasku-kbd {
+        font-family: var(--font-mono);
+        font-size: 10px;
+        background: var(--color-bg-elev);
+        border: 1px solid var(--color-line);
+        padding: 2px 5px;
+        border-radius: 4px;
+        color: var(--color-ink-3);
+    }
+
+    .kasku-grid { display: grid; gap: 20px; }
+    .kasku-grid-2 { grid-template-columns: 1fr 1fr; }
+    .kasku-grid-3 { grid-template-columns: repeat(3, 1fr); }
+    .kasku-grid-4 { grid-template-columns: repeat(4, 1fr); }
+
+    .kasku-divider {
+        height: 1px;
+        background: var(--color-line);
+        margin: 24px 0;
+    }
+
+    .kasku-page-view {
+        animation: kasku-page-in 220ms cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+    @keyframes kasku-page-in {
+        from { opacity: 0; transform: translateY(6px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Drawer */
+    .kasku-overlay {
+        position: absolute;
+        inset: 0;
+        background: rgba(14, 14, 12, 0.3);
+        z-index: 10;
+        animation: kasku-fade-in 200ms;
+    }
+    @keyframes kasku-fade-in {
+        from { opacity: 0; }
+        to { opacity: 1; }
+    }
+    .kasku-drawer {
+        position: absolute;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        width: 440px;
+        background: var(--color-bg-elev);
+        border-left: 1px solid var(--color-line);
+        z-index: 11;
+        overflow: auto;
+        box-shadow: 0 24px 48px -24px rgba(14, 14, 12, 0.25);
+        animation: kasku-slide-in 280ms cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+    @keyframes kasku-slide-in {
+        from { transform: translateX(40px); opacity: 0; }
+        to { transform: translateX(0); opacity: 1; }
+    }
+
+    /* Phone mockup */
+    .kasku-phone-frame {
+        width: 320px;
+        background: #1a1a1a;
+        border-radius: 38px;
+        padding: 10px;
+        box-shadow: 0 24px 48px -24px rgba(14, 14, 12, 0.25);
+        flex-shrink: 0;
+    }
+    .kasku-phone-screen {
+        background: #ECE5DD;
+        border-radius: 30px;
+        overflow: hidden;
+        height: 620px;
+        display: flex;
+        flex-direction: column;
+    }
+    .kasku-wa-header {
+        background: #075E54;
+        padding: 12px 14px 10px;
+        color: white;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+    .kasku-wa-bot-avatar {
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        background: white;
+        display: grid;
+        place-items: center;
+        font-family: var(--font-display);
+        color: var(--color-wa-ink);
+        font-size: 18px;
+        flex-shrink: 0;
+    }
+    .kasku-wa-bg {
+        flex: 1;
+        background-color: #ECE5DD;
+        padding: 12px;
+        overflow-y: auto;
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+    }
+    .kasku-wa-bubble {
+        max-width: 80%;
+        padding: 7px 10px 6px;
+        border-radius: 8px;
+        font-size: 13px;
+        line-height: 1.35;
+        box-shadow: 0 1px 0.5px rgba(0, 0, 0, 0.13);
+        animation: kasku-bubble-in 250ms ease;
+    }
+    @keyframes kasku-bubble-in {
+        from { opacity: 0; transform: translateY(6px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    .kasku-wa-bubble--out {
+        background: #DCF8C6;
+        align-self: flex-end;
+        border-top-right-radius: 2px;
+    }
+    .kasku-wa-bubble--in {
+        background: white;
+        align-self: flex-start;
+        border-top-left-radius: 2px;
+    }
+    .kasku-wa-time {
+        font-size: 9.5px;
+        color: rgba(0, 0, 0, 0.45);
+        float: right;
+        margin: 4px 0 -2px 8px;
+    }
+    .kasku-wa-time .read { color: #4FC3F7; margin-left: 2px; }
+    .kasku-wa-input {
+        background: #f0f0f0;
+        padding: 8px 10px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+    .kasku-wa-input-box {
+        flex: 1;
+        background: white;
+        border-radius: 22px;
+        padding: 8px 14px;
+        font-size: 13px;
+        color: #888;
+    }
+    .kasku-wa-input-send {
+        width: 36px;
+        height: 36px;
+        background: #128C7E;
+        border-radius: 50%;
+        display: grid;
+        place-items: center;
+        color: white;
+    }
+    .kasku-typing {
+        background: white;
+        align-self: flex-start;
+        border-radius: 8px;
+        border-top-left-radius: 2px;
+        padding: 10px 14px;
+        display: inline-flex;
+        gap: 3px;
+        box-shadow: 0 1px 0.5px rgba(0, 0, 0, 0.13);
+    }
+    .kasku-typing span {
+        width: 6px;
+        height: 6px;
+        background: #999;
+        border-radius: 50%;
+        animation: kasku-bounce 1.4s infinite;
+    }
+    .kasku-typing span:nth-child(2) { animation-delay: 0.2s; }
+    .kasku-typing span:nth-child(3) { animation-delay: 0.4s; }
+    @keyframes kasku-bounce {
+        0%, 60%, 100% { transform: translateY(0); opacity: 0.4; }
+        30% { transform: translateY(-4px); opacity: 1; }
+    }
+    .kasku-wa-receipt {
+        background: white;
+        border-radius: 8px;
+        padding: 10px;
+        font-size: 12px;
+        margin-top: 4px;
+        border-left: 3px solid var(--color-wa-deep);
+    }
+    .kasku-wa-receipt-row {
+        display: flex;
+        justify-content: space-between;
+        margin: 2px 0;
+    }
+
+    /* Responsive */
+    @media (max-width: 1280px) {
+        :root { --kasku-side-w: 220px; }
+        .kasku-grid-4 { grid-template-columns: 1fr 1fr; }
+        .kasku-page-title { font-size: 36px; }
+    }
+    @media (max-width: 1100px) {
+        .kasku-page { padding: 24px; }
+        .kasku-grid-3 { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 960px) {
+        .kasku-shell { grid-template-columns: 1fr; }
+        .kasku-sidebar { display: none; }
+        .kasku-grid-2,
+        .kasku-grid-3,
+        .kasku-grid-4 { grid-template-columns: 1fr; }
+        .kasku-search { width: 180px; }
+        .kasku-page-title { font-size: 32px; }
+    }
+}
+
+[data-flux-field]:not(ui-radio, ui-checkbox) {
+    @apply grid gap-2;
+}
+
+[data-flux-label] {
+    @apply !mb-0 !leading-tight;
+}
+
+input:focus[data-flux-control],
+textarea:focus[data-flux-control],
+select:focus[data-flux-control] {
+    @apply outline-hidden ring-2 ring-accent ring-offset-2 ring-offset-accent-foreground;
+}
+
+/* ============================================================
+   MOBILE LAYER (≤ 640px)
+   Mobile-first redesign per kaskudocs/mobile-design prototype.
+   Desktop layout (kasku-shell + sidebar + topbar) stays untouched
+   above 640px. Below 640px, sidebar/topbar are hidden and a
+   bottom tabbar + FAB appear instead.
+   ============================================================ */
+
+/* Mobile chrome: tabbar + FAB. Always rendered in DOM, hidden on desktop. */
+.kasku-mobile-tabbar,
+.kasku-mobile-fab,
+.kasku-mobile-appbar,
+.kasku-mobile-only {
+    display: none;
+}
+.kasku-desktop-only {
+    /* visible on desktop by default */
+}
+
+@media (max-width: 640px) {
+    /* Prevent any horizontal scroll on mobile */
+    html, body {
+        max-width: 100vw;
+        overflow-x: hidden !important;
+    }
+    body {
+        background: var(--color-bg, #f7f7f5);
+        font-size: 14px;
+    }
+
+    /* Hide desktop chrome entirely */
+    .kasku-sidebar,
+    .kasku-topbar { display: none !important; }
+
+    /* Reset shell/main to flow */
+    .kasku-shell {
+        display: block !important;
+        height: auto !important;
+        min-height: 100vh;
+        overflow: visible !important;
+        grid-template-columns: 1fr !important;
+    }
+    .kasku-main {
+        display: block !important;
+        height: auto !important;
+        overflow: visible !important;
+        grid-template-rows: none !important;
+    }
+    .kasku-page {
+        padding: 0 12px 110px !important;
+        overflow: visible !important;
+        max-width: 100vw;
+    }
+
+    /* Force ALL grids/flex columns to single column on mobile, regardless of inline styles */
+    .kasku-page .kasku-grid,
+    .kasku-page > div > .kasku-grid {
+        grid-template-columns: 1fr !important;
+        gap: 12px !important;
+    }
+    /* Inline grid-template-columns won't be caught above; need * selector */
+    .kasku-page [style*="grid-template-columns"] {
+        grid-template-columns: 1fr !important;
+    }
+    /* Restore intentional 2-column grids that should stay (mobile balance card pills, form rows) */
+    .kasku-mobile-balance [style*="grid-template-columns"],
+    [style*="grid-template-columns:1fr 1fr"].kasku-mobile-keep-2col,
+    .kasku-mobile-keep-2col [style*="grid-template-columns"] {
+        grid-template-columns: 1fr 1fr !important;
+    }
+
+    /* Top-level mobile children: never overflow viewport */
+    .kasku-page > div,
+    .kasku-page > div > div {
+        max-width: 100%;
+        min-width: 0;
+    }
+    /* Wide media should fit */
+    .kasku-page img,
+    .kasku-page video {
+        max-width: 100%;
+        height: auto;
+    }
+    /* SVG charts: fit width but keep aspect ratio */
+    .kasku-page svg[viewBox] {
+        max-width: 100%;
+    }
+
+    /* Cards: shrink padding on mobile */
+    .kasku-card {
+        padding: 14px !important;
+        border-radius: 16px !important;
+    }
+
+    /* Tables: make horizontally scrollable instead of bursting layout */
+    .kasku-page table {
+        display: block;
+        overflow-x: auto;
+        max-width: 100%;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    /* === Settings layout: turn sidebar into horizontal scrollable pills === */
+    /* Settings layout root flex container */
+    .kasku-page > div[style*="align-items:flex-start"][style*="gap:32px"] {
+        flex-direction: column !important;
+        gap: 12px !important;
+    }
+    /* Sidebar (aside width:220px) becomes a horizontal scroll bar of pills */
+    .kasku-page aside[style*="width:220px"] {
+        width: 100% !important;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+    .kasku-page aside[style*="width:220px"]::-webkit-scrollbar { display: none; }
+    .kasku-page aside[style*="width:220px"] > div {
+        flex-direction: row !important;
+        gap: 6px !important;
+        padding-bottom: 4px;
+        min-width: max-content;
+    }
+    /* kasku-nav-item inside settings sidebar → pill style on mobile */
+    .kasku-page aside[style*="width:220px"] .kasku-nav-item {
+        flex-shrink: 0;
+        padding: 6px 12px !important;
+        background: var(--color-bg-elev);
+        border: 1px solid var(--color-line);
+        border-radius: 999px;
+        font-size: 12px !important;
+        white-space: nowrap;
+    }
+    .kasku-page aside[style*="width:220px"] .kasku-nav-item.is-active {
+        background: var(--color-ink);
+        color: white;
+        border-color: var(--color-ink);
+    }
+    .kasku-page aside[style*="width:220px"] .kasku-nav-item svg { display: none; }
+    /* Inner card respects viewport */
+    .kasku-page > div[style*="align-items:flex-start"] > div[style*="flex:1"] {
+        width: 100% !important;
+    }
+    .kasku-page > div[style*="align-items:flex-start"] > div[style*="flex:1"] > .kasku-card > div[style*="max-width:560px"] {
+        max-width: 100% !important;
+    }
+
+    /* === Donut breakdown: stack vertically, smaller donut === */
+    /* Generic .kasku-card with flex-row gap inside → stack column */
+    .kasku-card > div[style*="display:flex"][style*="gap:24px"] {
+        flex-direction: column !important;
+        gap: 16px !important;
+        align-items: stretch !important;
+    }
+    .kasku-card svg[viewBox="0 0 200 200"] {
+        width: 180px !important;
+        height: 180px !important;
+        margin: 0 auto;
+        display: block;
+    }
+
+    /* === Bar chart pengeluaran harian: ensure SVG fits and labels don't crowd === */
+    .kasku-card svg[viewBox*="600"] {
+        width: 100% !important;
+        height: 160px !important;
+    }
+    /* Label row under bar chart: reduce to 3 labels max on mobile */
+    .kasku-card > div[style*="justify-content:space-between"][style*="font-size:11px"] > span:nth-child(2),
+    .kasku-card > div[style*="justify-content:space-between"][style*="font-size:11px"] > span:nth-child(4) {
+        display: none;
+    }
+
+    /* === Mobile appbar === */
+    .kasku-mobile-appbar {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 14px 6px;
+        margin: 0 -12px 8px;  /* extend to viewport edges, undo .kasku-page padding */
+        padding-left: 18px;
+        padding-right: 18px;
+        background: var(--color-bg);
+        position: sticky;
+        top: 0;
+        z-index: 20;
+    }
+    .kasku-mobile-appbar-back {
+        width: 36px; height: 36px;
+        display: grid; place-items: center;
+        border-radius: 50%;
+        background: var(--color-bg-elev);
+        border: 1px solid var(--color-line);
+        color: var(--color-ink);
+    }
+    .kasku-mobile-appbar-title {
+        font-family: var(--font-display, 'Instrument Serif', serif);
+        font-size: 26px;
+        line-height: 1;
+        flex: 1;
+        letter-spacing: -0.01em;
+    }
+    .kasku-mobile-appbar-sub { font-size: 11px; color: var(--color-ink-3); margin-top: 2px; }
+    .kasku-mobile-appbar-actions { display: flex; gap: 8px; }
+    .kasku-mobile-appbar-icon {
+        width: 36px; height: 36px;
+        display: grid; place-items: center;
+        border-radius: 50%;
+        background: var(--color-bg-elev);
+        border: 1px solid var(--color-line);
+        color: var(--color-ink-2);
+    }
+    .kasku-mobile-appbar-icon svg { width: 16px; height: 16px; }
+
+    /* === Mobile body wrapper === */
+    .kasku-mobile-scroll {
+        padding: 4px 18px 24px;
+    }
+
+    /* === Hide desktop page header on mobile (we use mobile appbar instead) === */
+    .kasku-page-hd {
+        padding: 0 6px 12px !important;
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        gap: 12px !important;
+    }
+    .kasku-page-hd .kasku-page-eyebrow,
+    .kasku-page-hd > div:first-child > div:first-child { display: none; }
+    .kasku-page-title {
+        font-size: 24px !important;
+        line-height: 1.1 !important;
+    }
+    .kasku-page-sub { font-size: 11px !important; }
+
+    /* === Cards adapt to mobile === */
+    .kasku-card {
+        border-radius: 18px;
+        padding: 16px;
+    }
+
+    /* === Grid → single column === */
+    .kasku-grid-2,
+    .kasku-grid-3,
+    .kasku-grid-4 { grid-template-columns: 1fr !important; gap: 12px !important; }
+
+    /* === Bottom tabbar === */
+    .kasku-mobile-tabbar {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        gap: 4px;
+        position: fixed;
+        left: 12px; right: 12px; bottom: 12px;
+        background: rgba(255,255,255,0.92);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border: 1px solid var(--color-line);
+        border-radius: 26px;
+        padding: 10px 12px 14px;
+        box-shadow: 0 8px 24px -8px rgba(0,0,0,0.12);
+        z-index: 30;
+    }
+    .kasku-mobile-tab {
+        display: flex; flex-direction: column; align-items: center; gap: 3px;
+        padding: 6px 4px;
+        color: var(--color-ink-3);
+        font-size: 10px;
+        font-weight: 500;
+        border-radius: 14px;
+        position: relative;
+        text-decoration: none;
+        background: none;
+        border: none;
+        cursor: pointer;
+        font-family: inherit;
+    }
+    .kasku-mobile-tab svg { width: 20px; height: 20px; }
+    .kasku-mobile-tab.is-active { color: var(--color-ink); }
+    .kasku-mobile-tab.is-active .kasku-mobile-tab-icon {
+        background: var(--color-ink);
+        color: white;
+    }
+    .kasku-mobile-tab-icon {
+        width: 38px; height: 28px;
+        display: grid; place-items: center;
+        border-radius: 12px;
+        transition: all 200ms;
+    }
+    .kasku-mobile-tab-badge {
+        position: absolute;
+        top: 2px; right: 28%;
+        background: #25d366;
+        color: white;
+        font-size: 9px;
+        font-weight: 600;
+        padding: 0px 5px;
+        border-radius: 999px;
+        min-width: 14px;
+        text-align: center;
+        line-height: 14px;
+    }
+
+    /* === FAB === */
+    .kasku-mobile-fab {
+        display: grid;
+        position: fixed;
+        right: 22px;
+        bottom: 96px;
+        width: 56px; height: 56px;
+        border-radius: 50%;
+        background: #25d366;
+        color: white;
+        place-items: center;
+        box-shadow: 0 8px 20px -4px rgba(37,211,102,0.5);
+        z-index: 25;
+        border: none;
+        cursor: pointer;
+    }
+    .kasku-mobile-fab svg { width: 24px; height: 24px; }
+    .kasku-mobile-fab::after {
+        content: '';
+        position: absolute;
+        inset: -4px;
+        border-radius: 50%;
+        border: 2px solid #25d366;
+        opacity: 0.3;
+        animation: kasku-fab-pulse 2.5s ease-in-out infinite;
+    }
+    @keyframes kasku-fab-pulse {
+        0%,100% { transform: scale(1); opacity: 0.3 }
+        50%     { transform: scale(1.15); opacity: 0 }
+    }
+
+    /* === Balance card (mobile dashboard hero) === */
+    .kasku-mobile-balance {
+        background: var(--color-ink);
+        color: white;
+        border-radius: 22px;
+        padding: 22px;
+        position: relative;
+        overflow: hidden;
+    }
+    .kasku-mobile-balance::after {
+        content: '';
+        position: absolute;
+        top: -40px; right: -40px;
+        width: 160px; height: 160px;
+        background: radial-gradient(circle, rgba(37,211,102,0.3) 0%, transparent 70%);
+        border-radius: 50%;
+    }
+
+    /* === Tx row (mobile compact) === */
+    .kasku-mobile-tx-row {
+        display: grid;
+        grid-template-columns: 38px 1fr auto;
+        gap: 12px;
+        align-items: center;
+        padding: 12px 14px;
+        background: var(--color-bg-elev);
+        border-radius: 14px;
+        margin-bottom: 6px;
+        border: 1px solid var(--color-line);
+    }
+    .kasku-mobile-tx-row:active { transform: scale(0.98); }
+    .kasku-mobile-tx-day {
+        padding: 14px 4px 6px;
+        font-size: 11px;
+        color: var(--color-ink-3);
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        font-weight: 500;
+    }
+
+    /* === Pills filter === */
+    .kasku-mobile-pills {
+        display: flex;
+        gap: 6px;
+        padding: 4px 18px 12px;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        margin: 0 -18px;
+    }
+    .kasku-mobile-pills::-webkit-scrollbar { display: none; }
+    .kasku-mobile-pill {
+        flex-shrink: 0;
+        padding: 6px 12px;
+        background: var(--color-bg-elev);
+        border: 1px solid var(--color-line);
+        border-radius: 999px;
+        font-size: 12px;
+        color: var(--color-ink-2);
+        white-space: nowrap;
+        text-decoration: none;
+        cursor: pointer;
+        font-family: inherit;
+    }
+    .kasku-mobile-pill.is-active {
+        background: var(--color-ink);
+        color: white;
+        border-color: var(--color-ink);
+    }
+
+    /* === Account carousel === */
+    .kasku-mobile-acc-carousel {
+        display: flex;
+        gap: 10px;
+        overflow-x: auto;
+        margin: 0 -18px;
+        padding: 4px 18px 12px;
+        scroll-snap-type: x mandatory;
+    }
+    .kasku-mobile-acc-carousel::-webkit-scrollbar { display: none; }
+
+    /* === WA mobile chat (full screen variant) === */
+    .kasku-mobile-wa {
+        background: #ECE5DD;
+        margin: 0 -18px;
+        min-height: calc(100vh - 130px);
+        display: flex;
+        flex-direction: column;
+    }
+    .kasku-mobile-wa-header {
+        background: #075E54;
+        color: white;
+        padding: 12px 14px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+    .kasku-mobile-wa-msgs {
+        flex: 1;
+        padding: 12px;
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        overflow-y: auto;
+    }
+    .kasku-mobile-wa-bubble {
+        max-width: 78%;
+        padding: 7px 10px 6px;
+        border-radius: 8px;
+        font-size: 13px;
+        line-height: 1.4;
+        box-shadow: 0 1px 0.5px rgba(0,0,0,0.13);
+    }
+    .kasku-mobile-wa-bubble.out { background: #DCF8C6; align-self: flex-end; border-top-right-radius: 2px; }
+    .kasku-mobile-wa-bubble.in  { background: white;   align-self: flex-start; border-top-left-radius: 2px; }
+    .kasku-mobile-wa-time { font-size: 9.5px; color: rgba(0,0,0,0.45); float: right; margin: 4px 0 -2px 8px; }
+    .kasku-mobile-wa-input {
+        background: #f0f0f0;
+        padding: 8px 10px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    /* === Section title === */
+    .kasku-mobile-section {
+        display: flex; align-items: center; justify-content: space-between;
+        margin: 22px 0 10px;
+        padding: 0 4px;
+    }
+    .kasku-mobile-section h3 { font-size: 14px; font-weight: 500; }
+    .kasku-mobile-section a { font-size: 12px; color: var(--color-ink-3); }
+
+    /* === Display utility === */
+    .kasku-mobile-display {
+        font-family: var(--font-display, 'Instrument Serif', serif);
+        font-weight: 400;
+        letter-spacing: -0.01em;
+        line-height: 1;
+    }
+
+    /* Hide things that don't make sense on mobile by default */
+    .kasku-mobile-hide,
+    .kasku-desktop-only { display: none !important; }
+    .kasku-mobile-only { display: block; }
+
+    /* Make form modals/drawers mount from bottom on mobile */
+    [data-flux-modal] dialog,
+    [data-flux-modal] [role="dialog"] {
+        margin: auto 0 0 !important;
+        max-height: 90vh;
+        max-width: 100vw !important;
+        width: 100% !important;
+        border-radius: 24px 24px 0 0 !important;
+    }
+
+    /* Chat page: hide phone frame, expand chat to full width */
+    .kasku-phone-frame {
+        width: 100% !important;
+        max-width: 100% !important;
+        height: calc(100vh - 200px) !important;
+        border-radius: 0 !important;
+        padding: 0 !important;
+        background: transparent !important;
+        box-shadow: none !important;
+    }
+    .kasku-phone-screen {
+        border-radius: 0 !important;
+    }
+    .kasku-phone-island { display: none !important; }
+
+    /* Chat: kasku-grid wrapper height fix on mobile */
+    .kasku-page > div > .kasku-grid[style*="100vh"],
+    .kasku-page .kasku-grid[style*="600px"] {
+        height: auto !important;
+        min-height: 0 !important;
+    }
+}
+
+@media print {
+    .kasku-sidebar,
+    .kasku-topbar,
+    .kasku-page-hd > div:last-child,
+    .kasku-overlay,
+    .kasku-drawer,
+    [data-flux-toast-group] {
+        display: none !important;
+    }
+    .kasku-shell {
+        display: block !important;
+        height: auto !important;
+        overflow: visible !important;
+    }
+    .kasku-main {
+        display: block !important;
+        overflow: visible !important;
+    }
+    .kasku-page {
+        padding: 0 !important;
+        overflow: visible !important;
+        background: white !important;
+    }
+    .kasku-card {
+        break-inside: avoid;
+        box-shadow: none !important;
+    }
+    body {
+        background: white !important;
+    }
+    @page {
+        margin: 1.5cm;
+        size: A4;
+    }
+}
