@@ -7,6 +7,7 @@ use App\Models\Budget;
 use App\Models\Category;
 use App\Models\Conversation;
 use App\Models\Goal;
+use App\Models\Household;
 use App\Models\Transaction;
 use App\Models\User;
 use Illuminate\Database\Seeder;
@@ -27,6 +28,16 @@ class KaskuSeeder extends Seeder
         if (! $user->phone) {
             $user->update(['phone' => '+6281287314422']);
         }
+
+        $household = $user->households()->first()
+            ?? Household::create(['name' => 'Personal — '.$user->name, 'created_by' => $user->id]);
+        if (! $user->households()->where('households.id', $household->id)->exists()) {
+            $user->households()->attach($household->id, ['role' => Household::ROLE_OWNER]);
+        }
+        if (! $user->current_household_id) {
+            $user->forceFill(['current_household_id' => $household->id])->save();
+        }
+        $householdId = $household->id;
 
         $categoriesData = [
             ['slug' => 'food',      'label' => 'Makan & Minum',      'emoji' => '🍚', 'color' => '#f59e0b', 'bg' => '#fef3c7'],
@@ -58,7 +69,7 @@ class KaskuSeeder extends Seeder
             unset($a['slug']);
             $acc = Account::updateOrCreate(
                 ['user_id' => $user->id, 'label' => $a['label']],
-                array_merge($a, ['user_id' => $user->id]),
+                array_merge($a, ['user_id' => $user->id, 'household_id' => $householdId]),
             );
             $accountIds[$slug] = $acc->id;
         }
@@ -89,6 +100,7 @@ class KaskuSeeder extends Seeder
         foreach ($txData as $t) {
             Transaction::create([
                 'user_id' => $user->id,
+                'household_id' => $householdId,
                 'account_id' => $accountIds[$t['acc']],
                 'category_id' => $categoryIds[$t['cat']],
                 'label' => $t['label'],
@@ -116,7 +128,7 @@ class KaskuSeeder extends Seeder
                     'category_id' => $categoryIds[$b['cat']],
                     'period' => $period,
                 ],
-                ['monthly_limit' => $b['limit']],
+                ['monthly_limit' => $b['limit'], 'household_id' => $householdId],
             );
         }
 
@@ -127,7 +139,7 @@ class KaskuSeeder extends Seeder
         ];
         Goal::where('user_id', $user->id)->delete();
         foreach ($goalData as $g) {
-            Goal::create(array_merge($g, ['user_id' => $user->id]));
+            Goal::create(array_merge($g, ['user_id' => $user->id, 'household_id' => $householdId]));
         }
 
         $convData = [
