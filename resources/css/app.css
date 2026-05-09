@@ -958,34 +958,46 @@ select:focus[data-flux-control] {
 
     /* === Settings layout: turn sidebar into horizontal scrollable pills === */
     .kasku-settings-layout {
+        display: flex !important;
         flex-direction: column !important;
-        gap: 12px !important;
+        gap: 14px !important;
+        align-items: stretch !important;
     }
     .kasku-settings-nav {
         width: 100% !important;
+        max-width: 100% !important;
         overflow-x: auto;
+        overflow-y: hidden;
         -webkit-overflow-scrolling: touch;
+        margin: 0 -12px;
+        padding: 4px 12px 6px;
+        scroll-snap-type: x proximity;
     }
     .kasku-settings-nav::-webkit-scrollbar { display: none; }
     .kasku-settings-nav > div {
+        display: flex !important;
         flex-direction: row !important;
-        gap: 6px !important;
-        padding-bottom: 4px;
+        gap: 8px !important;
         min-width: max-content;
+        padding-bottom: 2px;
     }
     .kasku-settings-nav .kasku-nav-item {
-        flex-shrink: 0;
-        padding: 6px 12px !important;
+        display: inline-flex !important;
+        width: auto !important;
+        flex: 0 0 auto !important;
+        padding: 8px 14px !important;
         background: var(--color-bg-elev);
         border: 1px solid var(--color-line);
         border-radius: 999px;
-        font-size: 12px !important;
+        font-size: 13px !important;
+        font-weight: 500 !important;
         white-space: nowrap;
-        color: var(--color-ink-2);
+        color: var(--color-ink) !important;
+        scroll-snap-align: start;
     }
     .kasku-settings-nav .kasku-nav-item.is-active {
         background: var(--color-ink);
-        color: var(--color-bg-elev);
+        color: var(--color-bg-elev) !important;
         border-color: var(--color-ink);
     }
     .kasku-settings-nav .kasku-nav-item svg { display: none; }
