@@ -54,6 +54,14 @@
     --color-accent: var(--color-ink);
     --color-accent-content: var(--color-ink);
     --color-accent-foreground: #ffffff;
+
+    /* Inverted surface — always dark with light text, used for "hero" balance/feature cards */
+    --color-surface-invert: #0e0e0c;
+    --color-on-invert: #ffffff;
+    --color-on-invert-2: rgba(255,255,255,0.7);
+    --color-on-invert-3: rgba(255,255,255,0.5);
+    --color-on-invert-bg: rgba(255,255,255,0.08);
+    --color-on-invert-border: rgba(255,255,255,0.15);
 }
 
 @layer theme {
@@ -72,6 +80,15 @@
         --color-accent: #ffffff;
         --color-accent-content: #ffffff;
         --color-accent-foreground: #0e0e0c;
+
+        /* In dark mode the "inverted" surface uses an accent green so it still pops
+           against the dark background and never collides with white text. */
+        --color-surface-invert: #0b3a32;
+        --color-on-invert: #ffffff;
+        --color-on-invert-2: rgba(255,255,255,0.75);
+        --color-on-invert-3: rgba(255,255,255,0.55);
+        --color-on-invert-bg: rgba(255,255,255,0.10);
+        --color-on-invert-border: rgba(255,255,255,0.18);
     }
 }
 
@@ -129,6 +146,42 @@
         border-radius: var(--radius-md);
         padding: 20px;
     }
+
+    /* Inverted "hero" card — always-dark surface with light text. Use for balance/feature
+       hero cards that need to stand out in both light and dark mode. */
+    .kasku-card--invert {
+        background: var(--color-surface-invert);
+        color: var(--color-on-invert);
+        border-color: var(--color-surface-invert);
+    }
+    .kasku-card--invert .kasku-eyebrow,
+    .kasku-card--invert .kasku-muted {
+        color: var(--color-on-invert-3);
+    }
+    .kasku-card--invert .kasku-on-invert-2 { color: var(--color-on-invert-2); }
+    .kasku-card--invert .kasku-on-invert-3 { color: var(--color-on-invert-3); }
+    .kasku-card--invert .kasku-invert-chip {
+        background: var(--color-on-invert-bg);
+        border-radius: 12px;
+        padding: 10px 12px;
+    }
+    .kasku-card--invert .kasku-invert-icon-btn {
+        border-color: var(--color-on-invert-border);
+        color: var(--color-on-invert-2);
+    }
+
+    /* WhatsApp banner — green accent in light, subtle green tint in dark. */
+    .kasku-wa-banner {
+        background: var(--color-wa-bg);
+        color: var(--color-wa-ink);
+    }
+    .dark .kasku-wa-banner {
+        color: var(--color-ink);
+    }
+    .kasku-wa-banner-title { color: var(--color-wa-ink); }
+    .kasku-wa-banner-sub   { color: var(--color-wa-deep); }
+    .dark .kasku-wa-banner-title { color: var(--color-ink); }
+    .dark .kasku-wa-banner-sub   { color: var(--color-ink-2); }
     .kasku-card-hd {
         display: flex;
         align-items: center;
@@ -686,14 +739,18 @@
     }
     .kasku-wa-bubble--out {
         background: #DCF8C6;
+        color: #111b21;
         align-self: flex-end;
         border-top-right-radius: 2px;
     }
     .kasku-wa-bubble--in {
         background: white;
+        color: #111b21;
         align-self: flex-start;
         border-top-left-radius: 2px;
     }
+    .kasku-wa-bubble--in *,
+    .kasku-wa-bubble--out * { color: inherit; }
     .kasku-wa-time {
         font-size: 9.5px;
         color: rgba(0, 0, 0, 0.45);
@@ -714,7 +771,7 @@
         border-radius: 22px;
         padding: 8px 14px;
         font-size: 13px;
-        color: #888;
+        color: #667781;
     }
     .kasku-wa-input-send {
         width: 36px;
@@ -900,26 +957,23 @@ select:focus[data-flux-control] {
     }
 
     /* === Settings layout: turn sidebar into horizontal scrollable pills === */
-    /* Settings layout root flex container */
-    .kasku-page > div[style*="align-items:flex-start"][style*="gap:32px"] {
+    .kasku-settings-layout {
         flex-direction: column !important;
         gap: 12px !important;
     }
-    /* Sidebar (aside width:220px) becomes a horizontal scroll bar of pills */
-    .kasku-page aside[style*="width:220px"] {
+    .kasku-settings-nav {
         width: 100% !important;
         overflow-x: auto;
         -webkit-overflow-scrolling: touch;
     }
-    .kasku-page aside[style*="width:220px"]::-webkit-scrollbar { display: none; }
-    .kasku-page aside[style*="width:220px"] > div {
+    .kasku-settings-nav::-webkit-scrollbar { display: none; }
+    .kasku-settings-nav > div {
         flex-direction: row !important;
         gap: 6px !important;
         padding-bottom: 4px;
         min-width: max-content;
     }
-    /* kasku-nav-item inside settings sidebar → pill style on mobile */
-    .kasku-page aside[style*="width:220px"] .kasku-nav-item {
+    .kasku-settings-nav .kasku-nav-item {
         flex-shrink: 0;
         padding: 6px 12px !important;
         background: var(--color-bg-elev);
@@ -927,18 +981,19 @@ select:focus[data-flux-control] {
         border-radius: 999px;
         font-size: 12px !important;
         white-space: nowrap;
+        color: var(--color-ink-2);
     }
-    .kasku-page aside[style*="width:220px"] .kasku-nav-item.is-active {
+    .kasku-settings-nav .kasku-nav-item.is-active {
         background: var(--color-ink);
-        color: white;
+        color: var(--color-bg-elev);
         border-color: var(--color-ink);
     }
-    .kasku-page aside[style*="width:220px"] .kasku-nav-item svg { display: none; }
+    .kasku-settings-nav .kasku-nav-item svg { display: none; }
     /* Inner card respects viewport */
-    .kasku-page > div[style*="align-items:flex-start"] > div[style*="flex:1"] {
+    .kasku-settings-layout > div[style*="flex:1"] {
         width: 100% !important;
     }
-    .kasku-page > div[style*="align-items:flex-start"] > div[style*="flex:1"] > .kasku-card > div[style*="max-width:560px"] {
+    .kasku-settings-layout > div[style*="flex:1"] > .kasku-card > div[style*="max-width:560px"] {
         max-width: 100% !important;
     }
 
@@ -1046,7 +1101,7 @@ select:focus[data-flux-control] {
         gap: 4px;
         position: fixed;
         left: 12px; right: 12px; bottom: 12px;
-        background: rgba(255,255,255,0.92);
+        background: color-mix(in srgb, var(--color-bg-elev) 92%, transparent);
         backdrop-filter: blur(20px);
         -webkit-backdrop-filter: blur(20px);
         border: 1px solid var(--color-line);
@@ -1073,7 +1128,7 @@ select:focus[data-flux-control] {
     .kasku-mobile-tab.is-active { color: var(--color-ink); }
     .kasku-mobile-tab.is-active .kasku-mobile-tab-icon {
         background: var(--color-ink);
-        color: white;
+        color: var(--color-bg-elev);
     }
     .kasku-mobile-tab-icon {
         width: 38px; height: 28px;
@@ -1128,8 +1183,8 @@ select:focus[data-flux-control] {
 
     /* === Balance card (mobile dashboard hero) === */
     .kasku-mobile-balance {
-        background: var(--color-ink);
-        color: white;
+        background: var(--color-surface-invert);
+        color: var(--color-on-invert);
         border-radius: 22px;
         padding: 22px;
         position: relative;
@@ -1237,7 +1292,9 @@ select:focus[data-flux-control] {
         font-size: 13px;
         line-height: 1.4;
         box-shadow: 0 1px 0.5px rgba(0,0,0,0.13);
+        color: #111b21;
     }
+    .kasku-mobile-wa-bubble * { color: inherit; }
     .kasku-mobile-wa-bubble.out { background: #DCF8C6; align-self: flex-end; border-top-right-radius: 2px; }
     .kasku-mobile-wa-bubble.in  { background: white;   align-self: flex-start; border-top-left-radius: 2px; }
     .kasku-mobile-wa-time { font-size: 9.5px; color: rgba(0,0,0,0.45); float: right; margin: 4px 0 -2px 8px; }

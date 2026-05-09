@@ -406,9 +406,9 @@ new #[Title('Transaksi')] class extends Component
     </div>
 
     @if($bulkMode)
-        <div class="kasku-card" style="padding:12px 16px;margin-bottom:12px;background:var(--color-ink);color:var(--color-bg-elev);border-color:var(--color-ink);display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap">
+        <div class="kasku-card kasku-card--invert" style="padding:12px 16px;margin-bottom:12px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap">
             <div style="display:flex;align-items:center;gap:12px">
-                <button type="button" wire:click="selectAllVisible" class="kasku-btn" style="background:transparent;color:var(--color-bg-elev);border-color:rgba(255,255,255,0.2)">
+                <button type="button" wire:click="selectAllVisible" class="kasku-btn" style="background:transparent;color:var(--color-on-invert);border-color:var(--color-on-invert-border)">
                     {{ count($checked) === $tx->count() && $tx->count() > 0 ? 'Hapus pilihan' : 'Pilih semua ('.$tx->count().')' }}
                 </button>
                 <div style="font-size:13px">
@@ -417,7 +417,7 @@ new #[Title('Transaksi')] class extends Component
             </div>
             <div style="display:flex;gap:10px">
                 @if(count($checked) > 0)
-                    <button type="button" wire:click="clearSelection" class="kasku-btn" style="background:transparent;color:var(--color-bg-elev);border-color:rgba(255,255,255,0.2)">Reset</button>
+                    <button type="button" wire:click="clearSelection" class="kasku-btn" style="background:transparent;color:var(--color-on-invert);border-color:var(--color-on-invert-border)">Reset</button>
                     <button type="button" wire:click="confirmDeleteMany" class="kasku-btn" style="background:var(--color-neg);color:white;border-color:var(--color-neg)">
                         <x-kasku.icon name="x" :size="14" /> Hapus {{ count($checked) }} transaksi
                     </button>

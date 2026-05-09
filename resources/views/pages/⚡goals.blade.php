@@ -180,10 +180,10 @@ new #[Title('Target & Goals')] class extends Component
     </x-kasku.page-header>
 
     <div class="kasku-grid kasku-grid-4" style="margin-bottom:20px">
-        <div class="kasku-card" style="background:var(--color-ink);color:var(--color-bg-elev);border-color:var(--color-ink)">
-            <div class="kasku-eyebrow" style="color:rgba(255,255,255,0.6);margin-bottom:12px">Terkumpul</div>
+        <div class="kasku-card kasku-card--invert">
+            <div class="kasku-eyebrow" style="margin-bottom:12px">Terkumpul</div>
             <div class="kasku-display" style="font-size:34px">{{ \App\Support\Money::fmt($totalCurrent) }}</div>
-            <div class="kasku-mono" style="font-size:11px;color:rgba(255,255,255,0.55);margin-top:8px">dari {{ \App\Support\Money::fmt($totalTarget) }}</div>
+            <div class="kasku-mono kasku-on-invert-3" style="font-size:11px;margin-top:8px">dari {{ \App\Support\Money::fmt($totalTarget) }}</div>
         </div>
 
         <div class="kasku-card">

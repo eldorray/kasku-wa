@@ -187,7 +187,7 @@ new #[Title('Akun & Dompet')] class extends Component
     {{-- Mobile balance summary --}}
     <div class="kasku-mobile-only" style="padding:0 0 8px">
         <div class="kasku-mobile-balance">
-            <div style="font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.5);font-weight:500;position:relative;z-index:1">Total saldo gabungan</div>
+            <div style="font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--color-on-invert-3);font-weight:500;position:relative;z-index:1">Total saldo gabungan</div>
             <div class="kasku-mobile-display" style="font-size:32px;margin-top:6px;position:relative;z-index:1">{{ \App\Support\Money::fmt($totalBalance) }}</div>
         </div>
     </div>

@@ -256,30 +256,30 @@ new #[Title('Dashboard')] class extends Component
     <div class="kasku-mobile-only" style="padding:0 0 8px">
         <div class="kasku-mobile-balance">
             <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;position:relative;z-index:1">
-                <span style="font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.5);font-weight:500">Total Saldo · {{ $accounts->count() }} akun</span>
+                <span style="font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--color-on-invert-3);font-weight:500">Total Saldo · {{ $accounts->count() }} akun</span>
             </div>
             <div class="kasku-mobile-display" style="font-size:34px;position:relative;z-index:1">{{ \App\Support\Money::fmt($totalBalance) }}</div>
-            <div style="font-size:11px;color:rgba(255,255,255,0.55);margin-top:6px;position:relative;z-index:1">{{ $monthLabel }} · saving rate <b style="color:white">{{ $current['income'] > 0 ? (int) round(($current['income'] - $current['expense']) / $current['income'] * 100) : 0 }}%</b></div>
+            <div style="font-size:11px;color:var(--color-on-invert-3);margin-top:6px;position:relative;z-index:1">{{ $monthLabel }} · saving rate <b style="color:var(--color-on-invert)">{{ $current['income'] > 0 ? (int) round(($current['income'] - $current['expense']) / $current['income'] * 100) : 0 }}%</b></div>
             <div class="kasku-mobile-keep-2col" style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:18px;position:relative;z-index:1">
-                <div style="background:rgba(255,255,255,0.08);border-radius:12px;padding:10px 12px">
-                    <div style="font-size:11px;color:rgba(255,255,255,0.5)">Masuk</div>
+                <div style="background:var(--color-on-invert-bg);border-radius:12px;padding:10px 12px">
+                    <div style="font-size:11px;color:var(--color-on-invert-3)">Masuk</div>
                     <div style="font-weight:500;margin-top:2px;font-variant-numeric:tabular-nums">{{ \App\Support\Money::fmtShort($current['income']) }}</div>
                 </div>
-                <div style="background:rgba(255,255,255,0.08);border-radius:12px;padding:10px 12px">
-                    <div style="font-size:11px;color:rgba(255,255,255,0.5)">Keluar</div>
+                <div style="background:var(--color-on-invert-bg);border-radius:12px;padding:10px 12px">
+                    <div style="font-size:11px;color:var(--color-on-invert-3)">Keluar</div>
                     <div style="font-weight:500;margin-top:2px;font-variant-numeric:tabular-nums">{{ \App\Support\Money::fmtShort($current['expense']) }}</div>
                 </div>
             </div>
         </div>
 
         {{-- WA banner mobile --}}
-        <a href="{{ route('chat') }}" wire:navigate style="background:#e7f7ec;border-radius:18px;padding:14px 16px;margin-top:14px;display:flex;align-items:center;gap:12px;text-decoration:none;color:inherit">
-            <div style="width:38px;height:38px;background:#25d366;border-radius:50%;display:grid;place-items:center;color:white;flex-shrink:0">
+        <a href="{{ route('chat') }}" wire:navigate class="kasku-wa-banner" style="border-radius:18px;padding:14px 16px;margin-top:14px;display:flex;align-items:center;gap:12px;text-decoration:none">
+            <div style="width:38px;height:38px;background:var(--color-wa);border-radius:50%;display:grid;place-items:center;color:white;flex-shrink:0">
                 <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21l1.7-5.4A8 8 0 1 1 8 19l-5 2Z"/></svg>
             </div>
             <div style="flex:1">
-                <div style="font-weight:500;font-size:13px;color:#075E54">Catat transaksi via chat</div>
-                <div style="font-size:11px;color:#128c7e;margin-top:2px">"kopi 25rb" · "/laporan" · &lt;2 detik balasan</div>
+                <div class="kasku-wa-banner-title" style="font-weight:500;font-size:13px">Catat transaksi via chat</div>
+                <div class="kasku-wa-banner-sub" style="font-size:11px;margin-top:2px">"kopi 25rb" · "/laporan" · &lt;2 detik balasan</div>
             </div>
         </a>
     </div>
@@ -296,13 +296,13 @@ new #[Title('Dashboard')] class extends Component
     </x-kasku.page-header>
 
     <div class="kasku-grid kasku-grid-4 kasku-desktop-only" style="margin-bottom:20px">
-        <div class="kasku-card" style="background:var(--color-ink);color:var(--color-bg-elev);border-color:var(--color-ink)">
+        <div class="kasku-card kasku-card--invert">
             <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
-                <span class="kasku-eyebrow" style="color:rgba(255,255,255,0.6)">Total Saldo</span>
-                <button type="button" class="kasku-icon-btn" style="border-color:rgba(255,255,255,0.15);color:rgba(255,255,255,0.7)"><x-kasku.icon name="eye" :size="14" /></button>
+                <span class="kasku-eyebrow">Total Saldo</span>
+                <button type="button" class="kasku-icon-btn kasku-invert-icon-btn"><x-kasku.icon name="eye" :size="14" /></button>
             </div>
             <div class="kasku-display" style="font-size:36px">{{ \App\Support\Money::fmt($totalBalance) }}</div>
-            <div class="kasku-mono" style="font-size:11px;color:rgba(255,255,255,0.55);margin-top:8px">{{ $accounts->count() }} akun · Bank, e-wallet, tunai</div>
+            <div class="kasku-mono kasku-on-invert-3" style="font-size:11px;margin-top:8px">{{ $accounts->count() }} akun · Bank, e-wallet, tunai</div>
         </div>
 
         <div class="kasku-card">

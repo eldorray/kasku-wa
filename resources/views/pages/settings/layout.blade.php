@@ -1,5 +1,5 @@
-<div style="display:flex;align-items:flex-start;gap:32px;flex-wrap:wrap">
-    <aside style="width:220px;flex-shrink:0">
+<div class="kasku-settings-layout" style="display:flex;align-items:flex-start;gap:32px;flex-wrap:wrap">
+    <aside class="kasku-settings-nav" style="width:220px;flex-shrink:0">
         @php
             $items = [
                 ['route' => 'profile.edit',     'label' => 'Profil',     'icon' => 'settings'],

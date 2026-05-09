@@ -154,8 +154,12 @@
             font-size: 13px;
             box-shadow: 0 1px 0.5px rgba(0,0,0,0.13);
         }
+        .bubble { color: #111b21; }
+        .bubble * { color: inherit; }
         .bubble.out { background: #DCF8C6; align-self: flex-end; border-top-right-radius: 2px; }
         .bubble.in  { background: white; align-self: flex-start; border-top-left-radius: 2px; }
+        .receipt, .receipt * { color: #111b21; }
+        .float-chip, .float-chip * { color: #111b21; }
         .bubble-time { font-size: 9.5px; color: rgba(0,0,0,0.45); float: right; margin: 4px 0 -2px 8px; }
         .receipt {
             background: white;

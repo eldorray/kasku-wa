@@ -88,14 +88,14 @@ new #[Title('Appearance settings')] class extends Component {
                             @elseif($currentLogo)
                                 <img src="{{ $currentLogo }}" alt="Logo aplikasi saat ini" class="h-full w-full object-contain">
                             @else
-                                <x-app-logo-icon class="size-8 fill-current text-zinc-500" />
+                                <x-app-logo-icon class="size-8 fill-current text-zinc-500 dark:text-zinc-400" />
                             @endif
                         </div>
 
                         <div class="min-w-0 flex-1">
                             <flux:input type="file" wire:model="logo" accept="image/*" />
                             <flux:error name="logo" />
-                            <p class="mt-2 text-xs text-zinc-500">PNG, JPG, WEBP, atau SVG. Maksimal 2MB.</p>
+                            <p class="mt-2 text-xs text-zinc-500 dark:text-zinc-400">PNG, JPG, WEBP, atau SVG. Maksimal 2MB.</p>
                         </div>
                     </div>
                 </div>
@@ -110,14 +110,14 @@ new #[Title('Appearance settings')] class extends Component {
                             @elseif($currentFavicon)
                                 <img src="{{ $currentFavicon }}" alt="Favicon saat ini" class="h-full w-full object-contain">
                             @else
-                                <x-app-logo-icon class="size-8 fill-current text-zinc-500" />
+                                <x-app-logo-icon class="size-8 fill-current text-zinc-500 dark:text-zinc-400" />
                             @endif
                         </div>
 
                         <div class="min-w-0 flex-1">
                             <flux:input type="file" wire:model="favicon" accept="image/*,.ico" />
                             <flux:error name="favicon" />
-                            <p class="mt-2 text-xs text-zinc-500">PNG, JPG, WEBP, SVG, atau ICO. Maksimal 1MB.</p>
+                            <p class="mt-2 text-xs text-zinc-500 dark:text-zinc-400">PNG, JPG, WEBP, SVG, atau ICO. Maksimal 1MB.</p>
                         </div>
                     </div>
                 </div>
@@ -128,7 +128,7 @@ new #[Title('Appearance settings')] class extends Component {
                     {{ __('Simpan branding') }}
                 </flux:button>
 
-                <span wire:loading wire:target="logo,favicon,saveBranding" class="text-sm text-zinc-500">
+                <span wire:loading wire:target="logo,favicon,saveBranding" class="text-sm text-zinc-500 dark:text-zinc-400">
                     {{ __('Mengunggah...') }}
                 </span>
             </div>

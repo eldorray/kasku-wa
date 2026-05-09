@@ -230,14 +230,14 @@ new #[Title('Chat WhatsApp')] class extends Component
                 </div>
             </x-kasku.card>
 
-            <div class="kasku-card" style="background:var(--color-ink);color:var(--color-bg-elev);border-color:var(--color-ink)">
+            <div class="kasku-card kasku-card--invert">
                 <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
-                    <div class="kasku-eyebrow" style="color:rgba(255,255,255,0.5)">Minggu ini</div>
-                    <span style="opacity:0.4"><x-kasku.icon name="sparkle" :size="14" /></span>
+                    <div class="kasku-eyebrow">Minggu ini</div>
+                    <span style="opacity:0.5"><x-kasku.icon name="sparkle" :size="14" /></span>
                 </div>
-                <div class="kasku-display" style="font-size:36px">{{ $waCount }}<span style="font-size:18px;opacity:0.5">/{{ max($totalWeek, $waCount) }}</span></div>
-                <div style="font-size:11px;opacity:0.6;margin-top:4px">Transaksi via chat</div>
-                <div class="kasku-bar" style="margin-top:14px;background:rgba(255,255,255,0.1)">
+                <div class="kasku-display" style="font-size:36px">{{ $waCount }}<span class="kasku-on-invert-3" style="font-size:18px">/{{ max($totalWeek, $waCount) }}</span></div>
+                <div class="kasku-on-invert-3" style="font-size:11px;margin-top:4px">Transaksi via chat</div>
+                <div class="kasku-bar" style="margin-top:14px;background:var(--color-on-invert-bg)">
                     <div class="kasku-bar-fill" style="width:{{ $totalWeek > 0 ? min(100, (int) round($waCount / $totalWeek * 100)) : 0 }}%;background:var(--color-wa)"></div>
                 </div>
             </div>

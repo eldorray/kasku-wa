@@ -13,7 +13,7 @@
             @if($logoUrl)
                 <img src="{{ $logoUrl }}" alt="{{ $appName }} logo" class="h-full w-full object-contain">
             @else
-                <x-app-logo-icon class="size-5 fill-current text-white dark:text-black" />
+                <x-app-logo-icon class="size-5 fill-current text-accent-foreground" />
             @endif
         </x-slot>
     </flux:sidebar.brand>
@@ -23,7 +23,7 @@
             @if($logoUrl)
                 <img src="{{ $logoUrl }}" alt="{{ $appName }} logo" class="h-full w-full object-contain">
             @else
-                <x-app-logo-icon class="size-5 fill-current text-white dark:text-black" />
+                <x-app-logo-icon class="size-5 fill-current text-accent-foreground" />
             @endif
         </x-slot>
     </flux:brand>
